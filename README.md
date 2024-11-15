@@ -10,7 +10,7 @@ Welcome to my GitHub profile! I'm **Raj Gohel**, a passionate developer who love
 - 🚀 I love solving real-world problems with code and collaborating with fellow developers.
 - 🎯 My goal is to contribute to open-source projects and build tools that make life easier.
 - 🌱 Currently learning: **MERN Stack**, **Laravel**,**THREE.JS**, and **DSA**.
-- ⚡ Fun fact: I’m a coffee enthusiast and love binge-watching tech talks!
+- ⚡ Fun fact: I’m a Tea enthusiast and love binge-watching tech talks!
 
 ---
 

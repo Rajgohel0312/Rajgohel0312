@@ -56,17 +56,22 @@ Let’s connect!
 
 ## 🌟 Featured Projects
 
-### 1. **3D Interactive Planes webiste using THREE.js**
+### 1. **Simple Expense Tracker **
+
+🔗 [View Project](https://github.com/Rajgohel0312/expense-tracker-laravel)  
+Simple Expense Tracker created using Laravel
+
+### 2. **3D Interactive Planes webiste using THREE.js**
 
 🔗 [View Project](https://github.com/Rajgohel0312/3d-Plane)  
 An 3D interactive website using THREE JS
 
-### 2. **Simple Mood Card **
+### 3. **Simple Mood Card **
 
 🔗 [View Project](https://github.com/Rajgohel0312/mood-card)  
 An Simple Mood Card created using CSS.
 
-### 3. **Diya using CSS**
+### 4. **Diya using CSS**
 
 🔗 [View Project](https://github.com/Rajgohel0312/Diya-using-css)  
 Simple Diya Using CSS.

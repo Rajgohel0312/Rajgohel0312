@@ -56,7 +56,7 @@ Let’s connect!
 
 ## 🌟 Featured Projects
 
-### 1. **Simple Expense Tracker **
+### 1. **Simple Expense Tracker**
 
 🔗 [View Project](https://github.com/Rajgohel0312/expense-tracker-laravel)  
 Simple Expense Tracker created using Laravel

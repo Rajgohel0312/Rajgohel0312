@@ -66,7 +66,7 @@ Simple Expense Tracker created using Laravel
 🔗 [View Project](https://github.com/Rajgohel0312/3d-Plane)  
 An 3D interactive website using THREE JS
 
-### 3. **Simple Mood Card **
+### 3. **Simple Mood Card**
 
 🔗 [View Project](https://github.com/Rajgohel0312/mood-card)  
 An Simple Mood Card created using CSS.

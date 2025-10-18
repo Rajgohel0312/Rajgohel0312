@@ -41,10 +41,8 @@
 ---
 
 ## 🏆 Recent Projects
-
-<p align="center">
-</p>
-
+<!-- AUTO-GENERATED: Use GitHub API -->
+<!-- AUTO-GENERATED: END -->
 ---
 
 ## 🌐 Connect With Me

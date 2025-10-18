@@ -55,6 +55,7 @@
 
 
 
+
 ## 🌐 Connect With Me
 
 <p align="center">
@@ -77,8 +78,9 @@
 ☕ Tea Enthusiast | 🎧 Podcast Lover | 🎮 Gamer | 💡 Always Experimenting with UI/UX & 3D
 </p>
 
+
 <!-- AUTO-GENERATED: QUOTE -->
 ## 💬 Random Coding Quote
 
-<p align='center'>“Talk is cheap. Show me the code.”<br>— Linus Torvalds</p>
+<p align='center'>“Good judgement comes from experience. Experience comes from bad judgement.”<br>— Jim Horning</p>
 <!-- AUTO-GENERATED: QUOTE END -->

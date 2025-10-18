@@ -45,13 +45,13 @@
 
 <p align="center">
 <!-- AUTO-GENERATED: Use GitHub API -->
-<p align='center'><table><tr>
-<td align="center" style="padding:10px; border:1px solid #ddd; border-radius:10px;"><b><a href="https://github.com/Rajgohel0312/Rajgohel0312">Rajgohel0312</a></b><br>No description<br>⭐ 0 | 🍴 0</td>
-<td align="center" style="padding:10px; border:1px solid #ddd; border-radius:10px;"><b><a href="https://github.com/Rajgohel0312/DSA-in-Java">DSA-in-Java</a></b><br>Practice Java patterns, arrays, strings & DSA problems for beginners and advanced learners.<br>⭐ 0 | 🍴 0</td>
-<td align="center" style="padding:10px; border:1px solid #ddd; border-radius:10px;"><b><a href="https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management">Odoo-x-Amalthea-Expense-Management</a></b><br>No description<br>⭐ 1 | 🍴 0</td>
-<td align="center" style="padding:10px; border:1px solid #ddd; border-radius:10px;"><b><a href="https://github.com/Rajgohel0312/spectech-erp">spectech-erp</a></b><br>No description<br>⭐ 1 | 🍴 0</td>
-<td align="center" style="padding:10px; border:1px solid #ddd; border-radius:10px;"><b><a href="https://github.com/Rajgohel0312/mood-card">mood-card</a></b><br>Create mood card using html css and js<br>⭐ 1 | 🍴 0</td>
-</tr></table></p>
+<p align='center'>
+- [Rajgohel0312](https://github.com/Rajgohel0312/Rajgohel0312) - No description ⭐ 0 | 🍴 0
+- [DSA-in-Java](https://github.com/Rajgohel0312/DSA-in-Java) - Practice Java patterns, arrays, strings & DSA problems for beginners and advanced learners. ⭐ 0 | 🍴 0
+- [Odoo-x-Amalthea-Expense-Management](https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management) - No description ⭐ 1 | 🍴 0
+- [spectech-erp](https://github.com/Rajgohel0312/spectech-erp) - No description ⭐ 1 | 🍴 0
+- [mood-card](https://github.com/Rajgohel0312/mood-card) - Create mood card using html css and js ⭐ 1 | 🍴 0
+</p>
 <!-- AUTO-GENERATED: END -->
 </p>
 

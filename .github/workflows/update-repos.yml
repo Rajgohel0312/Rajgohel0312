@@ -38,8 +38,16 @@ jobs:
           PROJECTS=$(cat RECENT_PROJECTS.md)
 
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
-            sed -i "/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\
-            <!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" README.md
+            awk -v repl="$PROJECTS" '
+              /<!-- AUTO-GENERATED: Use GitHub API -->/ {
+                print
+                print repl
+                while (getline && $0 !~ /<!-- AUTO-GENERATED: END -->/) {}
+                print
+                next
+              }
+              {print}
+            ' README.md > README.tmp && mv README.tmp README.md
           else
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi

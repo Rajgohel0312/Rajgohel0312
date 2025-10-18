@@ -26,11 +26,17 @@ jobs:
           echo "$REPOS_JSON" | jq -r '
             if type=="array" then
               .[] |
-              "<td align=\"center\" style=\"padding:15px; margin:5px; border:1px solid #ddd; border-radius:15px; width:200px; vertical-align:top;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>" +
-              (if .description then (.description[0:60] + if (.description|length>60) then "…" else "" end) else "No description" end) +
-              "<br><img src=\"https://img.shields.io/badge/" + (.language // "N/A") + "-blue?style=for-the-badge&logoColor=white\"/><br>" +
-              "<img src=\"https://img.shields.io/badge/⭐-" + (.stargazers_count|tostring) + "-yellow?style=for-the-badge\"/>" +
-              "<img src=\"https://img.shields.io/badge/🍴-" + (.forks_count|tostring) + "-blue?style=for-the-badge\"/></td>"
+              "<td align=\"center\" style=\"padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;\">
+                <a href=\"" + .html_url + "\" style=\"text-decoration:none; color:#58a6ff;\">
+                  <b style=\"font-size:16px;\">" + .name + "</b>
+                </a><br>
+                <p style=\"font-size:13px; color:#c9d1d9; margin:6px 0;\">" +
+                  (if .description then (.description[0:60] + if (.description|length>60) then "…" else "" end) else "No description" end) +
+                "</p>
+                <img src=\"https://img.shields.io/badge/" + (.language // "N/A") + "-blue?style=for-the-badge&logoColor=white\"/><br>
+                <img src=\"https://img.shields.io/badge/⭐-" + (.stargazers_count|tostring) + "-yellow?style=flat-square\"/> 
+                <img src=\"https://img.shields.io/badge/🍴-" + (.forks_count|tostring) + "-blue?style=flat-square\"/>
+              </td>"
             else
               "<td align=\"center\">Error fetching repos</td>"
             end
@@ -61,7 +67,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "Update stylish recent projects" || echo "No changes"
+          git commit -m "✨ Update stylish recent projects" || echo "No changes"
           git push origin HEAD:main --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

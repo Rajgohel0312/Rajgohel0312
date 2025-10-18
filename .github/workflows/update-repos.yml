@@ -54,7 +54,7 @@ jobs:
           ' >> RECENT_PROJECTS.md
 
           echo "</tr></table></p>" >> RECENT_PROJECTS.md
-          echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
+         
 
       # ---------------------- #
       # Fetch Random Coding Quote (safe)

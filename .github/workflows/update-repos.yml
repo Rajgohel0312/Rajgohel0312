@@ -57,9 +57,9 @@ jobs:
           echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
 
       # -----------------------------
-      # Fetch Random Coding Quote
+      # Fetch Random Coding Quote (API Only)
       # -----------------------------
-     - name: Fetch Random Coding Quote
+      - name: Fetch Random Coding Quote
         run: |
           QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random")
 
@@ -69,6 +69,7 @@ jobs:
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
           echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
+
       # -----------------------------
       # Update README.md
       # -----------------------------
@@ -92,7 +93,7 @@ jobs:
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # Append Random Coding Quote at the end of the README
+          # Append Random Coding Quote at the end
           {
             echo ""
             echo "<!-- AUTO-GENERATED: QUOTE -->"
@@ -101,14 +102,14 @@ jobs:
           } >> README.md
 
       # -----------------------------
-      # Commit and Push
+      # Commit & Push
       # -----------------------------
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "🧠 Update stylish recent projects & daily coding quote" || echo "No changes"
+          git commit -m "🧠 Update stylish recent projects & random coding quote" || echo "No changes"
           git pull --rebase origin main || echo "No rebase needed"
           git push origin HEAD:main || git push origin HEAD:main --force
         env:

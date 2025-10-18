@@ -43,7 +43,6 @@ jobs:
           ' >> RECENT_PROJECTS.md
 
           echo "</tr></table></p>" >> RECENT_PROJECTS.md
-          cat RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |

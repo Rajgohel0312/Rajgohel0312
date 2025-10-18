@@ -51,7 +51,6 @@
 <td align="center" style="width:220px; padding:18px; margin:10px; border-radius:18px; background:linear-gradient(145deg,#0d1117,#161b22); box-shadow:0 4px 12px rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.08); vertical-align:top; transition:transform 0.3s ease, box-shadow 0.3s ease;"><a href="https://github.com/Rajgohel0312/mood-card" style="text-decoration:none; color:#58a6ff;"><b style="font-size:16px;">mood-card</b></a><br><p style="font-size:13px; color:#c9d1d9; margin:6px 0;">Create mood card using html css and js</p><img src="https://img.shields.io/badge/CSS-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-1-yellow?style=flat-square"/> <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/></td>
 </tr></table></p>
 <!-- AUTO-GENERATED: END -->
----
 
 ## 🌐 Connect With Me
 

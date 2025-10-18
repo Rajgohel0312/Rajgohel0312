@@ -15,7 +15,7 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
-        
+
       - name: Fetch Latest 5 Repos
         run: |
           echo "Fetching latest 5 repos..."
@@ -40,6 +40,9 @@ jobs:
           fi
           echo "Updated README preview:"
           cat README.md
+          
+      - name: Debug RECENT_PROJECTS
+        run: cat RECENT_PROJECTS.md
 
       - name: Commit & Push
         run: |

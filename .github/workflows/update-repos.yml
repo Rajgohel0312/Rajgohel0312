@@ -2,7 +2,7 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # daily at midnight
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,38 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Tools
+      - name: Setup jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate Card-Style Recent Projects
+      - name: Generate Recent Projects Markdown
         run: |
-          echo "Generating recent projects in card style..."
-          
-          # Start HTML table
-          echo "<p align='center'><table><tr>" > RECENT_PROJECTS.md
-
-          # Fetch latest 5 repos and convert to HTML cards
+          echo "<p align='center'>" > RECENT_PROJECTS.md
           curl -s -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5" \
-            | jq -r '.[] | "<td align=\"center\" style=\"padding:10px; border:1px solid #ddd; border-radius:10px;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>\(.description // "No description")<br>⭐ \(.stargazers_count) | 🍴 \(.forks_count)</td>"' \
+            | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
             >> RECENT_PROJECTS.md
-
-          # Close HTML table
-          echo "</tr></table></p>" >> RECENT_PROJECTS.md
-
-          cat RECENT_PROJECTS.md
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          echo "</p>" >> RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
-          echo "Updating README.md with latest projects..."
           PROJECTS=$(cat RECENT_PROJECTS.md)
-
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
             awk -v repl="$PROJECTS" '
               /<!-- AUTO-GENERATED: Use GitHub API -->/ {
@@ -57,18 +42,12 @@ jobs:
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
 
-          echo "Updated README.md content:"
-          cat README.md
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit & Push Changes
+      - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
           git commit -m "Update recent projects" || echo "No changes to commit"
-          git push origin HEAD:main
+          git push origin HEAD:main --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

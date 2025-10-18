@@ -2,7 +2,7 @@ name: Update Stylish Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # Runs daily at midnight
   workflow_dispatch:
 
 jobs:
@@ -12,9 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup jq
+      - name: Setup jq and curl
         run: sudo apt-get update && sudo apt-get install -y jq curl
 
+      # -----------------------------
+      # Generate Stylish Project Cards
+      # -----------------------------
       - name: Generate Stylish Project Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,23 +56,53 @@ jobs:
           echo "</tr></table></p>" >> RECENT_PROJECTS.md
           echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
 
+      # -----------------------------
+      # Fetch Random Coding Quote
+      # -----------------------------
       - name: Fetch Random Coding Quote
         run: |
-          QUOTE_JSON=$(curl -s "https://programming-quotes-api.herokuapp.com/Quotes/random")
-          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.en')
-          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          # Try API first
+          QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random" || echo "")
+
+          if ! echo "$QUOTE_JSON" | grep -q 'quote'; then
+            echo "⚠️ API failed, using local fallback quote."
+            mapfile -t QUOTES < <(cat <<'EOF'
+            Talk is cheap. Show me the code.|Linus Torvalds
+            Programs must be written for people to read, and only incidentally for machines to execute.|Harold Abelson
+            Simplicity is the soul of efficiency.|Austin Freeman
+            First, solve the problem. Then, write the code.|John Johnson
+            Any fool can write code that a computer can understand. Good programmers write code that humans can understand.|Martin Fowler
+            Code is like humor. When you have to explain it, it’s bad.|Cory House
+            Experience is the name everyone gives to their mistakes.|Oscar Wilde
+            Make it work, make it right, make it fast.|Kent Beck
+            Simplicity is prerequisite for reliability.|Edsger W. Dijkstra
+            Testing leads to failure, and failure leads to understanding.|Burt Rutan
+            EOF
+            )
+            RANDOM_INDEX=$((RANDOM % ${#QUOTES[@]}))
+            QUOTE_LINE=${QUOTES[$RANDOM_INDEX]}
+            QUOTE=$(echo "$QUOTE_LINE" | cut -d'|' -f1)
+            AUTHOR=$(echo "$QUOTE_LINE" | cut -d'|' -f2)
+          else
+            QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
+            AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          fi
+
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
           echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
 
+      # -----------------------------
+      # Update README.md
+      # -----------------------------
       - name: Update README.md
         shell: bash
         run: |
-          # Remove old generated sections
+          # Remove old auto-generated sections (projects + quote)
           sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
           sed -i '/<!-- AUTO-GENERATED: QUOTE -->/,/<!-- AUTO-GENERATED: QUOTE END -->/d' README.md
 
-          # Insert Projects under the correct heading
+          # Insert Recent Projects under the correct section
           awk -v projects="$(cat RECENT_PROJECTS.md)" '
             /^## 🏆 Recent Projects/ {
               print
@@ -82,7 +115,7 @@ jobs:
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # Add the Random Quote section at the end
+          # Append Random Coding Quote at the end of the README
           {
             echo ""
             echo "<!-- AUTO-GENERATED: QUOTE -->"
@@ -90,12 +123,16 @@ jobs:
             echo "<!-- AUTO-GENERATED: QUOTE END -->"
           } >> README.md
 
+      # -----------------------------
+      # Commit and Push
+      # -----------------------------
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "🧠 Update recent projects and daily coding quote" || echo "No changes"
-          git push origin HEAD:main
+          git commit -m "🧠 Update stylish recent projects & daily coding quote" || echo "No changes"
+          git pull --rebase origin main || echo "No rebase needed"
+          git push origin HEAD:main || git push origin HEAD:main --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

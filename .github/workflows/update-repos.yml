@@ -2,25 +2,28 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # daily at midnight
-  workflow_dispatch: # manual trigger
+    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Profile Repo
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
       - name: Fetch Latest 5 Repos
         run: |
           curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
-          | jq -r '.[] | "<b>🔹 <a href=\"\(.html_url)\">\(.name)</a></b> - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count) <br/>"' > RECENT_PROJECTS.md
+          | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' > RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
-          sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md)"'\n<!-- AUTO-GENERATED: END -->' README.md
+          awk -v insert="$(cat RECENT_PROJECTS.md)" '
+          /<!-- AUTO-GENERATED: Use GitHub API -->/ {print; print insert; getline; while(!/<!-- AUTO-GENERATED: END -->/) {getline} print; next}
+          {print}
+          ' README.md > README_NEW.md && mv README_NEW.md README.md
 
       - name: Commit & Push
         run: |

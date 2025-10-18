@@ -14,21 +14,26 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
+        run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Fetch Latest 5 Repos
+      - name: Generate Card-Style Recent Projects
         run: |
-          echo "Fetching latest 5 repos for Rajgohel0312..."
-          echo "<p align='center'>" > RECENT_PROJECTS.md
+          echo "Generating recent projects in card style..."
+          
+          # Start HTML table
+          echo "<p align='center'><table><tr>" > RECENT_PROJECTS.md
+
+          # Fetch latest 5 repos and convert to HTML cards
           curl -s -H "Authorization: token $GITHUB_TOKEN" \
-          "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5" \
-          | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
-          >> RECENT_PROJECTS.md
-          echo "</p>" >> RECENT_PROJECTS.md
-          echo "Fetched projects:"
+            "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5" \
+            | jq -r '.[] | "<td align=\"center\" style=\"padding:10px; border:1px solid #ddd; border-radius:10px;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>\(.description // "No description")<br>⭐ \(.stargazers_count) | 🍴 \(.forks_count)</td>"' \
+            >> RECENT_PROJECTS.md
+
+          # Close HTML table
+          echo "</tr></table></p>" >> RECENT_PROJECTS.md
+
           cat RECENT_PROJECTS.md
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,6 +59,7 @@ jobs:
 
           echo "Updated README.md content:"
           cat README.md
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

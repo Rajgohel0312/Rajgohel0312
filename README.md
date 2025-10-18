@@ -44,15 +44,6 @@
 ## 🏆 Recent Projects
 
 <p align="center">
-<!-- AUTO-GENERATED: Use GitHub API -->
-<p align='center'><table><tr>
-<td align="center" style="padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/Rajgohel0312">Rajgohel0312</a></b><br>No description<br><img src="https://img.shields.io/badge/N/A-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-0-yellow?style=for-the-badge"/><img src="https://img.shields.io/badge/🍴-0-blue?style=for-the-badge"/></td>
-<td align="center" style="padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/DSA-in-Java">DSA-in-Java</a></b><br>Practice Java patterns, arrays, strings & DSA problems for b…<br><img src="https://img.shields.io/badge/Java-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-0-yellow?style=for-the-badge"/><img src="https://img.shields.io/badge/🍴-0-blue?style=for-the-badge"/></td>
-<td align="center" style="padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management">Odoo-x-Amalthea-Expense-Management</a></b><br>No description<br><img src="https://img.shields.io/badge/JavaScript-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-1-yellow?style=for-the-badge"/><img src="https://img.shields.io/badge/🍴-0-blue?style=for-the-badge"/></td>
-<td align="center" style="padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/spectech-erp">spectech-erp</a></b><br>No description<br><img src="https://img.shields.io/badge/JavaScript-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-1-yellow?style=for-the-badge"/><img src="https://img.shields.io/badge/🍴-0-blue?style=for-the-badge"/></td>
-<td align="center" style="padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/mood-card">mood-card</a></b><br>Create mood card using html css and js<br><img src="https://img.shields.io/badge/CSS-blue?style=for-the-badge&logoColor=white"/><br><img src="https://img.shields.io/badge/⭐-1-yellow?style=for-the-badge"/><img src="https://img.shields.io/badge/🍴-0-blue?style=for-the-badge"/></td>
-</tr></table></p>
-<!-- AUTO-GENERATED: END -->
 </p>
 
 ---
@@ -78,3 +69,53 @@
 <p align="center">
 ☕ Tea Enthusiast | 🎧 Podcast Lover | 🎮 Gamer | 💡 Always Experimenting with UI/UX & 3D
 </p>
+
+<!-- AUTO-GENERATED: Use GitHub API -->
+<p align='center'><table><tr>
+<td align="center" style="padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;">
+      <a href="https://github.com/Rajgohel0312/Rajgohel0312" style="text-decoration:none; color:#58a6ff;">
+        <b style="font-size:16px;">Rajgohel0312</b>
+      </a><br>
+      <p style="font-size:13px; color:#c9d1d9; margin:6px 0;">No description</p>
+      <img src="https://img.shields.io/badge/N/A-blue?style=for-the-badge&logoColor=white"/><br>
+      <img src="https://img.shields.io/badge/⭐-0-yellow?style=flat-square"/> 
+      <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/>
+    </td>
+<td align="center" style="padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;">
+      <a href="https://github.com/Rajgohel0312/DSA-in-Java" style="text-decoration:none; color:#58a6ff;">
+        <b style="font-size:16px;">DSA-in-Java</b>
+      </a><br>
+      <p style="font-size:13px; color:#c9d1d9; margin:6px 0;">Practice Java patterns, arrays, strings & DSA problems for b…</p>
+      <img src="https://img.shields.io/badge/Java-blue?style=for-the-badge&logoColor=white"/><br>
+      <img src="https://img.shields.io/badge/⭐-0-yellow?style=flat-square"/> 
+      <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/>
+    </td>
+<td align="center" style="padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;">
+      <a href="https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management" style="text-decoration:none; color:#58a6ff;">
+        <b style="font-size:16px;">Odoo-x-Amalthea-Expense-Management</b>
+      </a><br>
+      <p style="font-size:13px; color:#c9d1d9; margin:6px 0;">No description</p>
+      <img src="https://img.shields.io/badge/JavaScript-blue?style=for-the-badge&logoColor=white"/><br>
+      <img src="https://img.shields.io/badge/⭐-1-yellow?style=flat-square"/> 
+      <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/>
+    </td>
+<td align="center" style="padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;">
+      <a href="https://github.com/Rajgohel0312/spectech-erp" style="text-decoration:none; color:#58a6ff;">
+        <b style="font-size:16px;">spectech-erp</b>
+      </a><br>
+      <p style="font-size:13px; color:#c9d1d9; margin:6px 0;">No description</p>
+      <img src="https://img.shields.io/badge/JavaScript-blue?style=for-the-badge&logoColor=white"/><br>
+      <img src="https://img.shields.io/badge/⭐-1-yellow?style=flat-square"/> 
+      <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/>
+    </td>
+<td align="center" style="padding:15px; margin:10px; border-radius:15px; width:200px; vertical-align:top; background:#0d1117; box-shadow:0 4px 10px rgba(0,0,0,0.2); border:1px solid rgba(255,255,255,0.1); transition:all 0.3s ease;">
+      <a href="https://github.com/Rajgohel0312/mood-card" style="text-decoration:none; color:#58a6ff;">
+        <b style="font-size:16px;">mood-card</b>
+      </a><br>
+      <p style="font-size:13px; color:#c9d1d9; margin:6px 0;">Create mood card using html css and js</p>
+      <img src="https://img.shields.io/badge/CSS-blue?style=for-the-badge&logoColor=white"/><br>
+      <img src="https://img.shields.io/badge/⭐-1-yellow?style=flat-square"/> 
+      <img src="https://img.shields.io/badge/🍴-0-blue?style=flat-square"/>
+    </td>
+</tr></table></p>
+<!-- AUTO-GENERATED: END -->

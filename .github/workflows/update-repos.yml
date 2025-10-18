@@ -21,39 +21,33 @@ jobs:
       - name: Fetch Latest 5 Repos
         run: |
           echo "Fetching latest 5 repos for Rajgohel0312..."
-          curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
+          echo "<p align='center'>" > RECENT_PROJECTS.md
+          curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5" \
           | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
-          > RECENT_PROJECTS.md
+          >> RECENT_PROJECTS.md
+          echo "</p>" >> RECENT_PROJECTS.md
           echo "Fetched projects:"
           cat RECENT_PROJECTS.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update README.md
         run: |
           echo "Updating README.md with latest projects..."
           PROJECTS=$(cat RECENT_PROJECTS.md)
 
-          # Escape special characters for awk
-          PROJECTS_ESCAPED=$(printf '%s\n' "$PROJECTS" | sed -e 's/[\/&]/\\&/g')
-
-          # Replace between markers or append if missing
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
-            awk -v repl="$PROJECTS_ESCAPED" '
-              /<!-- AUTO-GENERATED: Use GitHub API -->/ {
-                print
-                print repl
-                getline
-                while ($0 !~ /<!-- AUTO-GENERATED: END -->/) getline
-                print
-                next
-              }
-              {print}
-            ' README.md > README.tmp && mv README.tmp README.md
+            sed -i "/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\
+            <!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" README.md
           else
-            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS_ESCAPED\n<!-- AUTO-GENERATED: END -->" >> README.md
+            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
 
           echo "Updated README.md content:"
           cat README.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit & Push Changes
         run: |

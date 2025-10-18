@@ -2,7 +2,7 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # daily at midnight
   workflow_dispatch:
 
 jobs:
@@ -16,14 +16,16 @@ jobs:
       - name: Fetch Latest 5 Repos
         run: |
           curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
-          | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' > RECENT_PROJECTS.md
+          | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
+          > RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
-          awk -v insert="$(cat RECENT_PROJECTS.md)" '
-          /<!-- AUTO-GENERATED: Use GitHub API -->/ {print; print insert; getline; while(!/<!-- AUTO-GENERATED: END -->/) {getline} print; next}
-          {print}
-          ' README.md > README_NEW.md && mv README_NEW.md README.md
+          if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
+            sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md)"'\n<!-- AUTO-GENERATED: END -->' README.md
+          else
+            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$(cat RECENT_PROJECTS.md)\n<!-- AUTO-GENERATED: END -->" >> README.md
+          fi
 
       - name: Commit & Push
         run: |

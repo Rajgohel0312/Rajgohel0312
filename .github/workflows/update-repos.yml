@@ -47,23 +47,18 @@ jobs:
       - name: Update README.md
         shell: bash
         run: |
+          # If README already contains generated section, delete it first
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
-            awk -v repl="$(cat RECENT_PROJECTS.md | sed 's/\\/\\\\/g; s/\"/\\"/g')" '
-              /<!-- AUTO-GENERATED: Use GitHub API -->/ {
-                print
-                print repl
-                while (getline && $0 !~ /<!-- AUTO-GENERATED: END -->/) {}
-                print
-                next
-              }
-              {print}
-            ' README.md > README.tmp && mv README.tmp README.md
-          else
-            echo "" >> README.md
-            echo "<!-- AUTO-GENERATED: Use GitHub API -->" >> README.md
-            cat RECENT_PROJECTS.md >> README.md
-            echo "<!-- AUTO-GENERATED: END -->" >> README.md
+            sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
           fi
+
+          # Add the new project section
+          {
+            echo ""
+            echo "<!-- AUTO-GENERATED: Use GitHub API -->"
+            cat RECENT_PROJECTS.md
+            echo "<!-- AUTO-GENERATED: END -->"
+          } >> README.md
 
       - name: Commit & Push
         run: |

@@ -47,9 +47,8 @@ jobs:
 
       - name: Update README.md
         run: |
-          PROJECTS=$(cat RECENT_PROJECTS.md)
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
-            awk -v repl="$PROJECTS" '
+            awk -v repl="$(cat RECENT_PROJECTS.md | sed 's/\\/\\\\/g; s/\"/\\"/g')" '
               /<!-- AUTO-GENERATED: Use GitHub API -->/ {
                 print
                 print repl
@@ -60,7 +59,12 @@ jobs:
               {print}
             ' README.md > README.tmp && mv README.tmp README.md
           else
-            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
+            {
+              echo ""
+              echo "<!-- AUTO-GENERATED: Use GitHub API -->"
+              cat RECENT_PROJECTS.md
+              echo "<!-- AUTO-GENERATED: END -->"
+            } >> README.md
 
       - name: Commit & Push
         run: |

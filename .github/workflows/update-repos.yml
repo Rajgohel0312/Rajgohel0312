@@ -15,7 +15,7 @@ jobs:
       - name: Setup jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate Stylish Recent Projects
+      - name: Generate Stylish Project Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -26,7 +26,7 @@ jobs:
           echo "$REPOS_JSON" | jq -r '
             if type=="array" then
               .[] |
-              "<td align=\"center\" style=\"padding:10px; margin:5px; border-radius:10px; width:180px; vertical-align:top;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>" +
+              "<td align=\"center\" style=\"padding:15px; margin:5px; border:1px solid #ddd; border-radius:15px; width:200px; vertical-align:top;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>" +
               (if .description then (.description[0:60] + if (.description|length>60) then "…" else "" end) else "No description" end) +
               "<br><img src=\"https://img.shields.io/badge/" + (.language // "N/A") + "-blue?style=for-the-badge&logoColor=white\"/><br>" +
               "<img src=\"https://img.shields.io/badge/⭐-" + (.stargazers_count|tostring) + "-yellow?style=for-the-badge\"/>" +
@@ -55,7 +55,6 @@ jobs:
             ' README.md > README.tmp && mv README.tmp README.md
           else
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
-          fi
 
       - name: Commit & Push
         run: |

@@ -2,7 +2,7 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # daily at midnight
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,23 +15,35 @@ jobs:
 
       - name: Fetch Latest 5 Repos
         run: |
-          curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
-          | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
-          > RECENT_PROJECTS.md
+          echo "Fetching latest 5 repos..."
+          curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 > all_repos.json
+          echo "Raw API response:"
+          cat all_repos.json
+
+          echo "Generating RECENT_PROJECTS.md..."
+          jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' all_repos.json > RECENT_PROJECTS.md
+          echo "Generated content:"
+          cat RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
+          echo "Checking README placeholder..."
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
+            echo "Placeholder found. Updating section..."
             sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md)"'\n<!-- AUTO-GENERATED: END -->' README.md
           else
+            echo "Placeholder not found. Appending new section..."
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$(cat RECENT_PROJECTS.md)\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
+          echo "Updated README preview:"
+          cat README.md
 
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
+          git diff --cached || echo "No changes to commit"
           git commit -m "Update recent projects" || echo "No changes to commit"
           git push origin HEAD:main
         env:

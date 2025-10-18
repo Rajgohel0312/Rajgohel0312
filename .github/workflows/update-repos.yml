@@ -2,7 +2,7 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"  # Daily at midnight
   workflow_dispatch:
 
 jobs:
@@ -10,46 +10,62 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout Repo
         uses: actions/checkout@v3
 
+      # Step 2: Install jq for JSON parsing
       - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+        run: |
+          echo "Installing jq..."
+          sudo apt-get update
+          sudo apt-get install -y jq
+          jq --version
 
+      # Step 3: Fetch latest 5 repositories from GitHub API
       - name: Fetch Latest 5 Repos
         run: |
-          echo "Fetching latest 5 repos..."
+          echo "Fetching latest 5 repos for Rajgohel0312..."
           curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 > all_repos.json
-          echo "Raw API response:"
+          echo "Raw JSON:"
           cat all_repos.json
-
           echo "Generating RECENT_PROJECTS.md..."
-          jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' all_repos.json > RECENT_PROJECTS.md
-          echo "Generated content:"
+          cat all_repos.json | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' > RECENT_PROJECTS.md
+          echo "Contents of RECENT_PROJECTS.md:"
           cat RECENT_PROJECTS.md
 
+      # Step 4: Debug the presence of README.md
+      - name: Check README.md
+        run: |
+          if [ -f README.md ]; then
+            echo "README.md exists."
+          else
+            echo "README.md does not exist. Creating one..."
+            echo "# Raj Gohel" > README.md
+          fi
+          echo "First 20 lines of README.md:"
+          head -n 20 README.md
+
+      # Step 5: Update README.md safely
       - name: Update README.md
         run: |
-          echo "Checking README placeholder..."
+          echo "Updating README.md with latest projects..."
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
-            echo "Placeholder found. Updating section..."
-            sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md)"'\n<!-- AUTO-GENERATED: END -->' README.md
+            sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md | sed 's/[&/\]/\\&/g')"'\n<!-- AUTO-GENERATED: END -->' README.md
           else
-            echo "Placeholder not found. Appending new section..."
-            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$(cat RECENT_PROJECTS.md)\n<!-- AUTO-GENERATED: END -->" >> README.md
+            echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$(cat RECENT_PROJECTS.md | sed 's/[&/\]/\\&/g')\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
-          echo "Updated README preview:"
+          echo "Updated README.md content:"
           cat README.md
-          
-      - name: Debug RECENT_PROJECTS
-        run: cat RECENT_PROJECTS.md
 
+      # Step 6: Commit and push changes
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git diff --cached || echo "No changes to commit"
+          git status
+          git diff --staged
           git commit -m "Update recent projects" || echo "No changes to commit"
           git push origin HEAD:main
         env:

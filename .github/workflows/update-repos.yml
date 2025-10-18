@@ -15,9 +15,9 @@ jobs:
       - name: Setup jq and curl
         run: sudo apt-get update && sudo apt-get install -y jq curl
 
-      # ----------------------------------------------------------
-      # Generate Stylish Project Cards
-      # ----------------------------------------------------------
+      # ---------------------- #
+      # Generate Recent Projects
+      # ---------------------- #
       - name: Generate Stylish Project Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,31 +53,40 @@ jobs:
             end
           ' >> RECENT_PROJECTS.md
 
+          echo "</tr></table></p>" >> RECENT_PROJECTS.md
+          echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
 
-      # ----------------------------------------------------------
-      # Fetch Random Coding Quote (API directly)
-      # ----------------------------------------------------------
+      # ---------------------- #
+      # Fetch Random Coding Quote (safe)
+      # ---------------------- #
       - name: Fetch Random Coding Quote
         run: |
+          echo "Fetching random quote..."
           QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random")
-          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
-          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+
+          # ✅ Check if it's valid JSON
+          if echo "$QUOTE_JSON" | jq empty > /dev/null 2>&1; then
+            QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
+            AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          else
+            echo "⚠️ Invalid JSON returned. Using default fallback quote."
+            QUOTE="Good judgement comes from experience. Experience comes from bad judgement."
+            AUTHOR="Jim Horning"
+          fi
 
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
           echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
 
-      # ----------------------------------------------------------
+      # ---------------------- #
       # Update README.md
-      # ----------------------------------------------------------
+      # ---------------------- #
       - name: Update README.md
         shell: bash
         run: |
-          # Remove old generated sections
           sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
           sed -i '/<!-- AUTO-GENERATED: QUOTE -->/,/<!-- AUTO-GENERATED: QUOTE END -->/d' README.md
 
-          # Insert Projects under heading
           awk -v projects="$(cat RECENT_PROJECTS.md)" '
             /^## 🏆 Recent Projects/ {
               print
@@ -90,7 +99,6 @@ jobs:
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # Add Quote at end
           {
             echo ""
             echo "<!-- AUTO-GENERATED: QUOTE -->"
@@ -98,9 +106,9 @@ jobs:
             echo "<!-- AUTO-GENERATED: QUOTE END -->"
           } >> README.md
 
-      # ----------------------------------------------------------
+      # ---------------------- #
       # Commit and Push
-      # ----------------------------------------------------------
+      # ---------------------- #
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"

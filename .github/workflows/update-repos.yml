@@ -59,39 +59,16 @@ jobs:
       # -----------------------------
       # Fetch Random Coding Quote
       # -----------------------------
-      - name: Fetch Random Coding Quote
+     - name: Fetch Random Coding Quote
         run: |
-          # Try API first
-          QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random" || echo "")
+          QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random")
 
-          if ! echo "$QUOTE_JSON" | grep -q 'quote'; then
-            echo "⚠️ API failed, using local fallback quote."
-            mapfile -t QUOTES < <(cat <<'EOF'
-            Talk is cheap. Show me the code.|Linus Torvalds
-            Programs must be written for people to read, and only incidentally for machines to execute.|Harold Abelson
-            Simplicity is the soul of efficiency.|Austin Freeman
-            First, solve the problem. Then, write the code.|John Johnson
-            Any fool can write code that a computer can understand. Good programmers write code that humans can understand.|Martin Fowler
-            Code is like humor. When you have to explain it, it’s bad.|Cory House
-            Experience is the name everyone gives to their mistakes.|Oscar Wilde
-            Make it work, make it right, make it fast.|Kent Beck
-            Simplicity is prerequisite for reliability.|Edsger W. Dijkstra
-            Testing leads to failure, and failure leads to understanding.|Burt Rutan
-            EOF
-            )
-            RANDOM_INDEX=$((RANDOM % ${#QUOTES[@]}))
-            QUOTE_LINE=${QUOTES[$RANDOM_INDEX]}
-            QUOTE=$(echo "$QUOTE_LINE" | cut -d'|' -f1)
-            AUTHOR=$(echo "$QUOTE_LINE" | cut -d'|' -f2)
-          else
-            QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
-            AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
-          fi
+          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
+          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
 
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
           echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
-
       # -----------------------------
       # Update README.md
       # -----------------------------

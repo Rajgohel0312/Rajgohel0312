@@ -2,7 +2,7 @@ name: Update Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *" # daily at midnight
   workflow_dispatch:
 
 jobs:
@@ -10,23 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
       - name: Setup jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Generate Recent Projects Markdown
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "<p align='center'>" > RECENT_PROJECTS.md
-          curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5" \
-            | jq -r '.[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"' \
-            >> RECENT_PROJECTS.md
+
+          # Fetch latest 5 repos
+          REPOS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5")
+
+          # Check if API returned an array
+          echo "$REPOS_JSON" | jq -r '
+            if type=="array" then
+              .[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"
+            else
+              "- Error: Could not fetch repos. API might be rate-limited."
+            end
+          ' >> RECENT_PROJECTS.md
+
           echo "</p>" >> RECENT_PROJECTS.md
+          echo "Generated RECENT_PROJECTS.md:"
+          cat RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
           PROJECTS=$(cat RECENT_PROJECTS.md)
+
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
             awk -v repl="$PROJECTS" '
               /<!-- AUTO-GENERATED: Use GitHub API -->/ {
@@ -42,7 +57,13 @@ jobs:
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
 
-      - name: Commit & Push
+          echo "Updated README.md content:"
+          cat README.md
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit & Push Changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"

@@ -1,8 +1,8 @@
-name: Update Recent Projects
+name: Update Stylish Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # daily at midnight
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -10,38 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate Recent Projects Markdown
+      - name: Generate Stylish Project Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "<p align='center'>" > RECENT_PROJECTS.md
+          echo "<p align='center'><table><tr>" > RECENT_PROJECTS.md
 
-          # Fetch latest 5 repos
+          # Fetch repos
           REPOS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5")
 
-          # Check if API returned an array
+          # Generate cards
           echo "$REPOS_JSON" | jq -r '
             if type=="array" then
-              .[] | "- [\(.name)](\(.html_url)) - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count)"
+              .[] | "<td align=\"center\" style=\"padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;\"><b><a href=\"" + .html_url + "\">" + .name + "</a></b><br>" +
+              (if .description then (.description[0:80] + if (.description|length>80) then "…" else "" end) else "No description" end) +
+              "<br><img src=\"https://img.shields.io/badge/" + (.language // "N/A") + "-blue?style=flat-square\"> <br> ⭐ " + (.stargazers_count|tostring) + " | 🍴 " + (.forks_count|tostring) + "</td>"
             else
-              "- Error: Could not fetch repos. API might be rate-limited."
+              "<td align=\"center\">Error fetching repos</td>"
             end
           ' >> RECENT_PROJECTS.md
 
-          echo "</p>" >> RECENT_PROJECTS.md
-          echo "Generated RECENT_PROJECTS.md:"
+          echo "</tr></table></p>" >> RECENT_PROJECTS.md
           cat RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
           PROJECTS=$(cat RECENT_PROJECTS.md)
-
           if grep -q "<!-- AUTO-GENERATED: Use GitHub API -->" README.md; then
             awk -v repl="$PROJECTS" '
               /<!-- AUTO-GENERATED: Use GitHub API -->/ {
@@ -57,18 +56,12 @@ jobs:
             echo -e "\n<!-- AUTO-GENERATED: Use GitHub API -->\n$PROJECTS\n<!-- AUTO-GENERATED: END -->" >> README.md
           fi
 
-          echo "Updated README.md content:"
-          cat README.md
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit & Push Changes
+      - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "Update recent projects" || echo "No changes to commit"
+          git commit -m "Update stylish recent projects" || echo "No changes"
           git push origin HEAD:main --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

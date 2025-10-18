@@ -45,13 +45,13 @@
 
 <p align="center">
 <!-- AUTO-GENERATED: Use GitHub API -->
-<p align='center'>
-- [Rajgohel0312](https://github.com/Rajgohel0312/Rajgohel0312) - No description ⭐ 0 | 🍴 0
-- [DSA-in-Java](https://github.com/Rajgohel0312/DSA-in-Java) - Practice Java patterns, arrays, strings & DSA problems for beginners and advanced learners. ⭐ 0 | 🍴 0
-- [Odoo-x-Amalthea-Expense-Management](https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management) - No description ⭐ 1 | 🍴 0
-- [spectech-erp](https://github.com/Rajgohel0312/spectech-erp) - No description ⭐ 1 | 🍴 0
-- [mood-card](https://github.com/Rajgohel0312/mood-card) - Create mood card using html css and js ⭐ 1 | 🍴 0
-</p>
+<p align='center'><table><tr>
+<td align="center" style="padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/Rajgohel0312">Rajgohel0312</a></b><br>No description<br><img src="https://img.shields.io/badge/N/A-blue?style=flat-square"> <br> ⭐ 0 | 🍴 0</td>
+<td align="center" style="padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/DSA-in-Java">DSA-in-Java</a></b><br>Practice Java patterns, arrays, strings & DSA problems for beginners and advance…<br><img src="https://img.shields.io/badge/Java-blue?style=flat-square"> <br> ⭐ 0 | 🍴 0</td>
+<td align="center" style="padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/Odoo-x-Amalthea-Expense-Management">Odoo-x-Amalthea-Expense-Management</a></b><br>No description<br><img src="https://img.shields.io/badge/JavaScript-blue?style=flat-square"> <br> ⭐ 1 | 🍴 0</td>
+<td align="center" style="padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/spectech-erp">spectech-erp</a></b><br>No description<br><img src="https://img.shields.io/badge/JavaScript-blue?style=flat-square"> <br> ⭐ 1 | 🍴 0</td>
+<td align="center" style="padding:10px; margin:5px; border:1px solid #ddd; border-radius:10px; width:220px; vertical-align:top;"><b><a href="https://github.com/Rajgohel0312/mood-card">mood-card</a></b><br>Create mood card using html css and js<br><img src="https://img.shields.io/badge/CSS-blue?style=flat-square"> <br> ⭐ 1 | 🍴 0</td>
+</tr></table></p>
 <!-- AUTO-GENERATED: END -->
 </p>
 

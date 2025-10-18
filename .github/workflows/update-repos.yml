@@ -2,7 +2,7 @@ name: Update Stylish Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Every day at midnight
+    - cron: "0 0 * * *" # Runs daily at midnight
   workflow_dispatch:
 
 jobs:
@@ -53,26 +53,15 @@ jobs:
             end
           ' >> RECENT_PROJECTS.md
 
-          echo "</tr></table></p>" >> RECENT_PROJECTS.md
-          echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
 
       # ----------------------------------------------------------
       # Fetch Random Coding Quote (API directly)
       # ----------------------------------------------------------
       - name: Fetch Random Coding Quote
         run: |
-          echo "Fetching random quote..."
           QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random")
-
-          # Make sure we got valid JSON (and not an HTML error page)
-          if echo "$QUOTE_JSON" | jq -e . >/dev/null 2>&1; then
-            QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
-            AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
-          else
-            echo "⚠️ API returned invalid response, using default quote."
-            QUOTE="Talk is cheap. Show me the code."
-            AUTHOR="Linus Torvalds"
-          fi
+          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
+          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
 
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
@@ -84,11 +73,11 @@ jobs:
       - name: Update README.md
         shell: bash
         run: |
-          # Remove old auto-generated sections
+          # Remove old generated sections
           sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
           sed -i '/<!-- AUTO-GENERATED: QUOTE -->/,/<!-- AUTO-GENERATED: QUOTE END -->/d' README.md
 
-          # Insert Recent Projects under correct heading
+          # Insert Projects under heading
           awk -v projects="$(cat RECENT_PROJECTS.md)" '
             /^## 🏆 Recent Projects/ {
               print
@@ -101,7 +90,7 @@ jobs:
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # Append Random Quote section at end
+          # Add Quote at end
           {
             echo ""
             echo "<!-- AUTO-GENERATED: QUOTE -->"

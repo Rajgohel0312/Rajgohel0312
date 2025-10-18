@@ -1,0 +1,31 @@
+name: Update Recent Projects
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # daily
+  workflow_dispatch:      # manual trigger
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Profile Repo
+        uses: actions/checkout@v3
+
+      - name: Fetch Latest 5 Repos
+        run: |
+          curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
+          | jq -r '.[] | "<b>🔹 <a href=\"\(.html_url)\">\(.name)</a></b> - \(.description // "No description") <br/>"' > RECENT_PROJECTS.md
+
+      - name: Update README.md
+        run: |
+          sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/c\<!-- AUTO-GENERATED: Use GitHub API -->\n'"$(cat RECENT_PROJECTS.md)"'\n<!-- AUTO-GENERATED: END -->' README.md
+
+      - name: Commit & Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "Update recent projects" || echo "No changes to commit"
+          git push

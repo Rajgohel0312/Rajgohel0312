@@ -1,93 +1,74 @@
-# Hi there! 👋
 
-Welcome to my GitHub profile! I'm **Raj Gohel**, a passionate developer who loves creating innovative solutions and exploring the latest technologies.
-
----
-
-## 🌟 About Me
-
-- 💻 I’m currently working on exciting projects in **web development** and **algorithm visualizations**.
-- 🚀 I love solving real-world problems with code and collaborating with fellow developers.
-- 🎯 My goal is to contribute to open-source projects and build tools that make life easier.
-- 🌱 Currently learning: **MERN Stack**, **Laravel**,**THREE.JS**, and **DSA**.
-- ⚡ Fun fact: I’m a Tea enthusiast and love binge-watching tech talks!
+<h1 align="center">Hi, I'm Raj Gohel 👋</h1>
+<p align="center">
+  <em>Creative Web & 3D Developer | Algorithm Enthusiast | UI/UX Experimenter</em>
+</p>
 
 ---
 
-## 🚀 Tech Stack
+## 🌈 Currently Learning
 
-Here are the tools and technologies I work with:
+<p align="center">
+  <img alt="MERN" src="https://img.shields.io/badge/MERN-Stack-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
+  <img alt="Laravel" src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white"/>
+  <img alt="Three.js" src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white"/>
+  <img alt="DSA" src="https://img.shields.io/badge/DSA-Practice-F7DF1E?style=for-the-badge"/>
+</p>
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=flat-square&logo=bootstrap&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
-![Three.js](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=three.js&logoColor=white)
-![React Three Fiber](https://img.shields.io/badge/React%20Three%20Fiber-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Laravel](https://img.shields.io/badge/Laravel-FF2D20?logo=laravel&logoColor=white)
+---
+
+## 💻 Tech Stack
+
+<p align="center">
+  <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
+  <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"/>
+  <img alt="React" src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img alt="Three.js" src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white"/>
+  <img alt="MySQL" src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"/>
+  <img alt="PHP" src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"/>
+</p>
 
 ---
 
 ## 📊 GitHub Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Rajgohel0312&show_icons=true&theme=radical)  
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Rajgohel0312&layout=compact&theme=radical)
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Rajgohel0312&show_icons=true&theme=radical&hide_border=true" width="48%"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rajgohel0312&layout=compact&theme=radical&hide_border=true" width="48%"/>
+</p>
 
 ---
 
-## 📫 How to Reach Me
+## 🏆 Recent Projects
 
-Let’s connect!
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/raj-gohel-bbaa5b211/)  
-[![Instagram](https://img.shields.io/badge/Instagram-Follow-833AB4?style=flat-square&logo=instagram&logoColor=white)](https://www.instagram.com/_.rajgohel._/)
-
----
-
-## 🎯 Fun Fact
-
-> When I'm not coding, you'll find me exploring new tech ideas, learning music, or Playing Games. 🍳
+<p align="center">
+<!-- AUTO-GENERATED: Use GitHub API -->
+<!-- Projects will be injected here automatically -->
+<!-- AUTO-GENERATED: END -->
+</p>
 
 ---
 
-## 🌟 Featured Projects
+## 🌐 Connect With Me
 
-### 1. **Simple Expense Tracker**
-
-🔗 [View Project](https://github.com/Rajgohel0312/expense-tracker-laravel)  
-Simple Expense Tracker created using Laravel
-
-### 2. **3D Interactive Planes webiste using THREE.js**
-
-🔗 [View Project](https://github.com/Rajgohel0312/3d-Plane)  
-An 3D interactive website using THREE JS
-
-### 3. **Simple Mood Card**
-
-🔗 [View Project](https://github.com/Rajgohel0312/mood-card)  
-An Simple Mood Card created using CSS.
-
-### 4. **Diya using CSS**
-
-🔗 [View Project](https://github.com/Rajgohel0312/Diya-using-css)  
-Simple Diya Using CSS.
+<p align="center">
+  <a href="https://www.linkedin.com/in/raj-gohel-bbaa5b211/" target="_blank">
+    <img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin"/>
+  </a>
+  <a href="https://www.instagram.com/_.rajgohel._/" target="_blank">
+    <img alt="Instagram" src="https://img.shields.io/badge/Instagram-Follow-E4405F?style=for-the-badge&logo=instagram&logoColor=white"/>
+  </a>
+  <a href="mailto:rajgohel2018@gmail.com">
+    <img alt="Email" src="https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail"/>
+  </a>
+</p>
 
 ---
 
-## 🛠 Tools I Use
+## ⚡ Fun Facts
 
-Here are some of the tools and environments that power my workflow:
-
-- **Code Editors**: VSCode, Sublime Text
-- **Version Control**: Git, GitHub
-- **Design Tools**: Figma, Canva
-
----
-
-## 🎉 Thank You!
-
-Thanks for visiting my GitHub profile! Feel free to explore my repositories and star ⭐ the ones you find interesting. Let’s build something amazing together!
+<p align="center">
+☕ Tea Enthusiast | 🎧 Podcast Lover | 🎮 Gamer | 💡 Always Experimenting with UI/UX & 3D
+</p>

@@ -13,16 +13,10 @@ jobs:
       - name: Checkout Profile Repo
         uses: actions/checkout@v3
 
-      - name: Install jq
-        run: sudo apt-get install -y jq
-
       - name: Fetch Latest 5 Repos
         run: |
-          curl -s https://api.github.com/users/Rajgohel0312/repos?per_page=100 \
-          | jq -r '. | sort_by(.updated_at) | reverse | .[0:10] | .[] | select(.name != "Rajgohel0312") | "<b>🔹 <a href=\"\(.html_url)\">\(.name)</a></b> - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count) <br/>"' > RECENT_PROJECTS.md
-
-      - name: Debug: Show Fetched Repos
-        run: cat RECENT_PROJECTS.md
+          curl -s https://api.github.com/users/Rajgohel0312/repos?sort=updated&per_page=5 \
+          | jq -r '.[] | "<b>🔹 <a href=\"\(.html_url)\">\(.name)</a></b> - \(.description // "No description") ⭐ \(.stargazers_count) | 🍴 \(.forks_count) <br/>"' > RECENT_PROJECTS.md
 
       - name: Update README.md
         run: |
@@ -34,6 +28,6 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add README.md
           git commit -m "Update recent projects" || echo "No changes to commit"
-          git push
+          git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

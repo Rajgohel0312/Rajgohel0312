@@ -2,7 +2,7 @@ name: Update Stylish Recent Projects
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs daily at midnight
+    - cron: "0 0 * * *" # Every day at midnight
   workflow_dispatch:
 
 jobs:
@@ -15,9 +15,9 @@ jobs:
       - name: Setup jq and curl
         run: sudo apt-get update && sudo apt-get install -y jq curl
 
-      # -----------------------------
+      # ----------------------------------------------------------
       # Generate Stylish Project Cards
-      # -----------------------------
+      # ----------------------------------------------------------
       - name: Generate Stylish Project Cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,8 +33,8 @@ jobs:
                 "width:220px; padding:18px; margin:10px; border-radius:18px; " +
                 "background:linear-gradient(145deg,#0d1117,#161b22); " +
                 "box-shadow:0 4px 12px rgba(0,0,0,0.25); " +
-                "border:1px solid rgba(255,255,255,0.08); " +
-                "vertical-align:top; transition:transform 0.3s ease, box-shadow 0.3s ease;\">" +
+                "border:1px solid rgba(255,255,255,0.08); vertical-align:top; " +
+                "transition:transform 0.3s ease, box-shadow 0.3s ease;\">" +
 
                 "<a href=\"" + .html_url + "\" style=\"text-decoration:none; color:#58a6ff;\">" +
                   "<b style=\"font-size:16px;\">" + .name + "</b>" +
@@ -56,31 +56,39 @@ jobs:
           echo "</tr></table></p>" >> RECENT_PROJECTS.md
           echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
 
-      # -----------------------------
-      # Fetch Random Coding Quote (API Only)
-      # -----------------------------
+      # ----------------------------------------------------------
+      # Fetch Random Coding Quote (API directly)
+      # ----------------------------------------------------------
       - name: Fetch Random Coding Quote
         run: |
+          echo "Fetching random quote..."
           QUOTE_JSON=$(curl -s "https://programming-quotesapi.vercel.app/api/random")
 
-          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
-          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          # Make sure we got valid JSON (and not an HTML error page)
+          if echo "$QUOTE_JSON" | jq -e . >/dev/null 2>&1; then
+            QUOTE=$(echo "$QUOTE_JSON" | jq -r '.quote')
+            AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          else
+            echo "⚠️ API returned invalid response, using default quote."
+            QUOTE="Talk is cheap. Show me the code."
+            AUTHOR="Linus Torvalds"
+          fi
 
           echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
           echo "" >> RANDOM_QUOTE.md
           echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
 
-      # -----------------------------
+      # ----------------------------------------------------------
       # Update README.md
-      # -----------------------------
+      # ----------------------------------------------------------
       - name: Update README.md
         shell: bash
         run: |
-          # Remove old auto-generated sections (projects + quote)
+          # Remove old auto-generated sections
           sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
           sed -i '/<!-- AUTO-GENERATED: QUOTE -->/,/<!-- AUTO-GENERATED: QUOTE END -->/d' README.md
 
-          # Insert Recent Projects under the correct section
+          # Insert Recent Projects under correct heading
           awk -v projects="$(cat RECENT_PROJECTS.md)" '
             /^## 🏆 Recent Projects/ {
               print
@@ -93,7 +101,7 @@ jobs:
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
-          # Append Random Coding Quote at the end
+          # Append Random Quote section at end
           {
             echo ""
             echo "<!-- AUTO-GENERATED: QUOTE -->"
@@ -101,16 +109,16 @@ jobs:
             echo "<!-- AUTO-GENERATED: QUOTE END -->"
           } >> README.md
 
-      # -----------------------------
-      # Commit & Push
-      # -----------------------------
+      # ----------------------------------------------------------
+      # Commit and Push
+      # ----------------------------------------------------------
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "🧠 Update stylish recent projects & random coding quote" || echo "No changes"
+          git commit -m "✨ Update stylish recent projects & random coding quote" || echo "No changes"
           git pull --rebase origin main || echo "No rebase needed"
-          git push origin HEAD:main || git push origin HEAD:main --force
+          git push origin HEAD:main --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

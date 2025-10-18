@@ -45,7 +45,7 @@
 
 <p align="center">
 <!-- AUTO-GENERATED: Use GitHub API -->
-<!-- Projects will be injected here automatically -->
+
 <!-- AUTO-GENERATED: END -->
 </p>
 

@@ -51,32 +51,51 @@ jobs:
           ' >> RECENT_PROJECTS.md
 
           echo "</tr></table></p>" >> RECENT_PROJECTS.md
+          echo "<p align='center' style='font-size:13px; color:#8b949e;'>💡 These projects update automatically every 24 hours.</p>" >> RECENT_PROJECTS.md
+
+      - name: Fetch Random Coding Quote
+        run: |
+          QUOTE_JSON=$(curl -s "https://programming-quotes-api.herokuapp.com/Quotes/random")
+          QUOTE=$(echo "$QUOTE_JSON" | jq -r '.en')
+          AUTHOR=$(echo "$QUOTE_JSON" | jq -r '.author')
+          echo "## 💬 Random Coding Quote" > RANDOM_QUOTE.md
+          echo "" >> RANDOM_QUOTE.md
+          echo "<p align='center'>“$QUOTE”<br>— $AUTHOR</p>" >> RANDOM_QUOTE.md
 
       - name: Update README.md
         shell: bash
         run: |
-          # Remove old generated section (if any)
+          # Remove old generated sections
           sed -i '/<!-- AUTO-GENERATED: Use GitHub API -->/,/<!-- AUTO-GENERATED: END -->/d' README.md
+          sed -i '/<!-- AUTO-GENERATED: QUOTE -->/,/<!-- AUTO-GENERATED: QUOTE END -->/d' README.md
 
-          # Insert the new section right after "## 🏆 Recent Projects"
-          awk -v block="$(cat RECENT_PROJECTS.md)" '
+          # Insert Projects under the correct heading
+          awk -v projects="$(cat RECENT_PROJECTS.md)" '
             /^## 🏆 Recent Projects/ {
               print
               print ""
               print "<!-- AUTO-GENERATED: Use GitHub API -->"
-              print block
+              print projects
               print "<!-- AUTO-GENERATED: END -->"
               next
             }
             { print }
           ' README.md > README.tmp && mv README.tmp README.md
 
+          # Add the Random Quote section at the end
+          {
+            echo ""
+            echo "<!-- AUTO-GENERATED: QUOTE -->"
+            cat RANDOM_QUOTE.md
+            echo "<!-- AUTO-GENERATED: QUOTE END -->"
+          } >> README.md
+
       - name: Commit & Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add README.md
-          git commit -m "✨ Update stylish recent projects" || echo "No changes"
+          git commit -m "🧠 Update recent projects and daily coding quote" || echo "No changes"
           git push origin HEAD:main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

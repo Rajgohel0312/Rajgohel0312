@@ -42,6 +42,11 @@
 </p>
 ---
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Rajgohel0312/Rajgohel0312/output/github-contribution-grid-snake.svg" />
+</p>
+
+---
 ## 🏆 Recent Projects
 
 <!-- AUTO-GENERATED: Use GitHub API -->

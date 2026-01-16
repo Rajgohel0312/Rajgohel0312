@@ -40,11 +40,6 @@
   />
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=Rajgohel0312&theme=redical&hide_border=true" width="48%"/>
 </p>
----
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Rajgohel0312/Rajgohel0312/output/github-contribution-grid-snake.svg" />
-</p>
 
 ---
 ## 🏆 Recent Projects

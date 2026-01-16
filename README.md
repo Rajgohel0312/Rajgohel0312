@@ -34,7 +34,7 @@
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com?user=Rajgohel0312&theme=radical&hide_border=true" width="48%"/>
+ <img src="https://github-readme-streak-stats.herokuapp.com?user=Rajgohel0312&theme=radical&hide_border=true" width="60%"/>
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=Rajgohel0312&theme=redical&hide_border=true" width="48%"/>
 </p>
 ---
